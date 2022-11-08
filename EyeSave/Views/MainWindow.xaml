@@ -7,8 +7,8 @@
         xmlns:vm="clr-namespace:EyeSave.ViewModels"
         mc:Ignorable="d"
         Title="Глазки-Save" 
-        Height="500" 
-        MinHeight="500"       
+        Height="666" 
+        MinHeight="666"       
         Width="1000"
         MinWidth="1000"
         FontSize="16"
@@ -29,8 +29,9 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <Grid
@@ -97,6 +98,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border
+                            Name="brdItem"
                             BorderBrush="{StaticResource ColorAccent}"
                             BorderThickness="2"
                             MinHeight="120"
@@ -153,12 +155,97 @@
                                     Margin="8"/>
 
                             </Grid>
-                            
+
                         </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Discount}" Value="25">
+                                <Setter TargetName="brdItem" Property="Background" Value="LightGreen"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
             </ListView>
+
+            <!-- Buttons -->
+            
+            <Grid 
+                Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Margin="8"
+                    Background="{StaticResource ColorPrimary}"
+                    Content="Добавить агента"
+                    BorderBrush="{StaticResource ColorAccent}" />
+
+                <Button
+                    Grid.Column="1"
+                    Margin="8"
+                    Background="{StaticResource ColorPrimary}"
+                    Content="Изменить приоритет"
+                    BorderBrush="{StaticResource ColorAccent}" />
+            </Grid>
+            
+            <!-- Footer -->
+
+            <Grid
+                Grid.Row="3"
+                Background="{StaticResource ColorSecondary}">
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+                    <Button
+                        x:Name="btnPrevPage"
+                        Content="&lt;"
+                        Padding="8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="btnPrevPage_Click"/>
+
+                    <ListView
+                        ItemsSource="{Binding Pages,
+                        UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedPage,
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Background="Transparent"
+                        BorderThickness="0">
+                        
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Name="tbNum"
+                                    Padding="8"
+                                    Text="{Binding pageNum}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                    <Button
+                        x:Name="btnNextPage"
+                        Content="&gt;"
+                        Padding="8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="btnNextPage_Click"/>
+
+                </StackPanel>
+                
+                
+
+            </Grid>
             
         </Grid>
         

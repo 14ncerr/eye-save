@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EyeSave.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,31 @@ namespace EyeSave.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindowViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            _viewModel = (MainWindowViewModel)DataContext;    
+        }
+
+        private void btnPrevPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel.SelectedPage.pageNum == 1)
+                return;
+
+            var currentPageNum = _viewModel.SelectedPage.pageNum;
+
+            _viewModel.SelectedPage = _viewModel.Pages[currentPageNum - 2];        
+        }
+
+        private void btnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel.SelectedPage.pageNum == _viewModel.Pages.Count)
+                return;
+
+            var currentPageNum = _viewModel.SelectedPage.pageNum;
+
+            _viewModel.SelectedPage = _viewModel.Pages[currentPageNum];
         }
     }
 }
